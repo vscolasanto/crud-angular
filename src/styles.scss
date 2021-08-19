@@ -1,1 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
+
+:root {
+  --white-text: #e8e8e8;
+}
+
+body {
+  height: 100vh;
+  background-color: var(--white-text) !important;
+}
