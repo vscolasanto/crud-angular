@@ -7,6 +7,8 @@ import { BrowserModule } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 import { HttpClientModule } from '@angular/common/http'
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api'
+import { InMemoryDatabase } from '../in-memory-database'
 
 import { NgBrazil } from 'ng-brazil'
 import { TextMaskModule } from 'angular2-text-mask';
@@ -24,6 +26,7 @@ registerLocaleData(localePT)
     BrowserAnimationsModule,
     RouterModule,
     HttpClientModule,
+    HttpClientInMemoryWebApiModule.forRoot(InMemoryDatabase),
     NgBrazil,
     TextMaskModule,
   ],
