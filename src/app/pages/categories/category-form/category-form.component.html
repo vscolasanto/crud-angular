@@ -1,0 +1,65 @@
+<app-breadcrumb [items]="[
+  { text: 'Categorias', url: '/categories'},
+  { text: pageTitle }
+]"></app-breadcrumb>
+
+<app-page-title
+  [page-title]="pageTitle"
+  button-text="<< Voltar"
+  button-class="btn-light"
+  button-link="/categories"
+></app-page-title>
+
+<form [formGroup]="resourceForm" (submit)="submitForm()">
+  <div class="card">
+    <div class="card-header">
+      Informações sobre a categoria
+    </div>
+
+    <div class="card-body">
+      <div class="row">
+        <div class="form-group col-md-6">
+          <label for="name">Nome</label>
+          <input type="text" class="form-control" id="name" formControlName="name">
+
+          <app-form-field-error [form-control]="$any(resourceForm).get('name')"></app-form-field-error>
+        </div>
+
+        <div class="form-group col-md-2">
+          <label for="backgroundColor">Cor de Fundo:</label>
+          <input type="color" class="form-control" id="backgroundColor" formControlName="backgroundColor">
+
+          <app-form-field-error [form-control]="$any(resourceForm).get('backgroundColor')"></app-form-field-error>
+        </div>
+
+        <div class="form-group col-md-2">
+          <label for="textColor">Cor do Texto:</label>
+          <input type="color" class="form-control" id="textColor" formControlName="textColor">
+
+          <app-form-field-error [form-control]="$any(resourceForm).get('textColor')"></app-form-field-error>
+        </div>
+
+        <div class="form-group col-md-2 d-flex flex-column">
+          <label for="preview">Preview</label>
+          <div class="d-flex align-items-center h-100">
+            <span *ngIf="resourceForm.get('name')?.value"
+              class="badge badge-pill"
+              [style.background]="resourceForm.get('backgroundColor')?.value"
+              [style.color]="resourceForm.get('textColor')?.value"
+            >
+              {{resourceForm.get('name')?.value}}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-server-error-message [server-error-message]="serverErrorMessage"></app-server-error-message>
+
+  <div class="d-flex justify-content-end align-items-center mt-3">
+    <button [disabled]="submittingForm || resourceForm.invalid" type="submit" class="btn btn-success">
+      Salvar
+    </button>
+  </div>
+</form>
