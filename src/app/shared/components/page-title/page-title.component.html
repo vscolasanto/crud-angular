@@ -1,0 +1,14 @@
+<div class="row mb-3">
+  <div class="col-md">
+    <h1 class="h2 border-left pl-2">
+      {{pageTitle}}
+    </h1>
+  </div>
+  <div *ngIf="buttonLink && buttonClass && buttonText"
+    class="col-md d-flex justify-content-end align-items-center"
+  >
+    <a [routerLink]="buttonLink" class="btn" [class]="buttonClass">
+      {{buttonText}}
+    </a>
+  </div>
+</div>
