@@ -14,11 +14,21 @@
     <div class="collapse navbar-collapse" id="navbarToggler">
       <h3>MyBooks</h3>
       <nav class="navbar-nav me-auto mb-2 mb-lg-0">
+        <a class="nav-link"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          routerLink="/"
+        >
+          Home
+        </a>
         <a class="nav-link" routerLinkActive="active" routerLink="/authors">
           Autores
         </a>
         <a class="nav-link" routerLinkActive="active" routerLink="/books">
           Livros
+        </a>
+        <a class="nav-link" routerLinkActive="active" routerLink="/categories">
+          Categorias
         </a>
         <div class="animation"></div>
       </nav>
