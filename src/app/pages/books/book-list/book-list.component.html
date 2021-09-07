@@ -1,1 +1,49 @@
-<p>book-list works!</p>
+<app-breadcrumb [items]="[
+  { text: 'Livros' }
+]"></app-breadcrumb>
+
+<app-page-title
+  page-title="Livros"
+  button-text="+ Novo Livro"
+  button-class="btn-success"
+  button-link="new"
+></app-page-title>
+
+<div class="table-responsive">
+  <table class="table table-hover">
+    <thead>
+      <tr class="bg-dark text-light">
+        <th>Título</th>
+        <th>Autor</th>
+        <th>Ano</th>
+        <th>Páginas</th>
+        <th>Categoria</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let book of resources">
+        <td>{{book.title}}</td>
+        <td>{{book.author?.name}}</td>
+        <td>{{book.release}}</td>
+        <td>{{book.pages}}</td>
+        <td>
+          <span *ngFor="let category of book.categories"
+            class="badge badge-pill"
+            [style.background]="category.backgroundColor"
+            [style.color]="category.textColor"
+          >
+            {{category.name}}
+          </span>
+        </td>
+        <td>
+          <a [routerLink]="[book.id, 'edit']"
+            class="btn btn-outline-primary btn-sm"
+            style="margin-right: 0.5rem;"
+          >Editar</a>
+          <button (click)="remove(book)" class="btn btn-outline-danger btn-sm">Excluir</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

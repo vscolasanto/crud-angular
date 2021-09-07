@@ -1,1 +1,68 @@
-<p>book-form works!</p>
+<app-breadcrumb [items]="[
+  { text: 'Livros', url: '/books'},
+  { text: pageTitle }
+]"></app-breadcrumb>
+
+<app-page-title
+  [page-title]="pageTitle"
+  button-text="<< Voltar"
+  button-class="btn-light"
+  button-link="/books"
+></app-page-title>
+
+<form [formGroup]="resourceForm" (submit)="submitForm()">
+  <div class="card">
+    <div class="card-header">
+      Informações sobre o Livro
+    </div>
+
+    <div class="card-body">
+      <div class="row">
+        <div class="form-group col-md-4">
+          <label for="title">Título</label>
+          <input type="text" class="form-control" id="title" formControlName="title">
+
+          <app-form-field-error [form-control]="$any(resourceForm).get('title')"></app-form-field-error>
+        </div>
+
+        <div class="form-group col-md-4">
+          <label for="categories">Categorias</label>
+          <ng-multiselect-dropdown [settings]="categoriesSettings"
+            [data]="categories"
+            placeholder="Selecione a(s) categoria(s)"
+            formControlName="categories"
+          ></ng-multiselect-dropdown>
+        </div>
+
+        <div class="form-group col-md-4">
+          <label for="Author">Autor</label>
+          <ng-multiselect-dropdown [settings]="authorsSettings"
+            [data]="authors"
+            placeholder="Selecione o Autor"
+            formControlName="author"
+          ></ng-multiselect-dropdown>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-4">
+          <label for="pages">Páginas</label>
+          <input type="text" numbersOnly class="form-control" id="pages" formControlName="pages">
+        </div>
+
+        <div class="form-group col-md-4">
+          <label for="release">Ano de lançamento</label>
+          <input type="text" numbersOnly class="form-control" id="release" formControlName="release">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-server-error-message [server-error-message]="serverErrorMessage"></app-server-error-message>
+
+  <div class="d-flex justify-content-end align-items-center mt-3">
+    <button [disabled]="submittingForm || resourceForm.invalid" type="submit" class="btn btn-success">
+      Salvar
+    </button>
+  </div>
+</form>
+
