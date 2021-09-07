@@ -10,8 +10,6 @@ import { HttpClientModule } from '@angular/common/http'
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api'
 import { InMemoryDatabase } from '../in-memory-database'
 
-import { NgBrazil } from 'ng-brazil'
-import { TextMaskModule } from 'angular2-text-mask';
 import { NavbarComponent } from './components/navbar/navbar.component'
 
 registerLocaleData(localePT)
@@ -27,17 +25,15 @@ registerLocaleData(localePT)
     RouterModule,
     HttpClientModule,
     HttpClientInMemoryWebApiModule.forRoot(InMemoryDatabase),
-    NgBrazil,
-    TextMaskModule,
   ],
   exports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    NavbarComponent
+    NavbarComponent,
   ],
   providers: [
-    { provide: LOCALE_ID, useValue: "pt" }
+    { provide: LOCALE_ID, useValue: "pt" },
   ]
 })
 export class CoreModule { }
