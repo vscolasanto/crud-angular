@@ -1,1 +1,62 @@
-<p>author-form works!</p>
+<app-breadcrumb [items]="[
+  { text: 'Autores', url: '/authors'},
+  { text: pageTitle }
+]"></app-breadcrumb>
+
+<app-page-title
+  [page-title]="pageTitle"
+  button-text="<< Voltar"
+  button-class="btn-light"
+  button-link="/authors"
+></app-page-title>
+
+<form [formGroup]="resourceForm" (submit)="submitForm()">
+  <div class="card">
+    <div class="card-header">
+      Informações sobre o autor
+    </div>
+
+    <div class="card-body">
+      <div class="row">
+        <div class="form-group col-md-4">
+          <label for="name">Nome</label>
+          <input type="text" class="form-control" id="name" formControlName="name">
+
+          <app-form-field-error [form-control]="$any(resourceForm).get('name')"></app-form-field-error>
+        </div>
+
+        <div class="form-group col-md-4">
+          <label for="nationality">Nacionalidade</label>
+          <ng-multiselect-dropdown [settings]="dropdownSettings"
+            [data]="countries"
+            placeholder="Selecione o País"
+            formControlName="nationality"
+          ></ng-multiselect-dropdown>
+        </div>
+
+        <div class="form-group col-md-4">
+          <label for="birthdate">Data de nascimento</label>
+          <p-calendar id="birthdate"
+            formControlName="birthdate"
+            inputStyleClass="calendar-form-control"
+            dataType="string"
+            dateFormat="dd/mm/yy"
+            yearRange="1500:2021"
+            [yearNavigator]="true"
+            [monthNavigator]="true"
+            [showButtonBar]="true"
+          ></p-calendar>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-server-error-message [server-error-message]="serverErrorMessage"></app-server-error-message>
+
+  <div class="d-flex justify-content-end align-items-center mt-3">
+    <button [disabled]="submittingForm || resourceForm.invalid" type="submit" class="btn btn-success">
+      Salvar
+    </button>
+  </div>
+</form>
+
