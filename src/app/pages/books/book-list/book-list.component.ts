@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Injector } from '@angular/core';
 import { BaseResourceListComponent } from 'src/app/shared/components/base-resource-list/base-resource-list.component';
 import { Book } from '../models/book.model';
 import { BooksService } from '../services/books.service';
@@ -10,9 +10,10 @@ import { BooksService } from '../services/books.service';
 })
 export class BookListComponent extends BaseResourceListComponent<Book> {
   constructor(
-    private booksService: BooksService
+    private booksService: BooksService,
+    protected injector: Injector
   ) {
-    super(booksService)
+    super(injector, booksService)
   }
 
   protected removeError() {
