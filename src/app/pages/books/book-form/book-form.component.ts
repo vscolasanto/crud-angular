@@ -67,11 +67,11 @@ export class BookFormComponent extends BaseResourceFormComponent<Book> implement
 
   protected loadResource() {
     if (this.currentAction === 'edit') {
-      this.route.paramMap.pipe(
-        switchMap(params =>
-          this.baseResourceService.getById(Number(params.get('id')))
-        )
-      ).subscribe(
+      this.isLoading = true
+
+      const id = Number(this.route.snapshot.params.id)
+
+      this.baseResourceService.getById(id).subscribe(
         (resource: Book) => {
           this.resource = Object.assign(resource, {
             author: [{ id: resource?.author?.id , name: resource?.author?.name }]
@@ -79,7 +79,9 @@ export class BookFormComponent extends BaseResourceFormComponent<Book> implement
           this.resourceForm.patchValue(resource)
           this.getAllAuthors()
           this.getAllCategories()
-        }
+        },
+        (error: HttpErrorResponse) => console.error(error),
+        () => this.isLoading = false
       )
     } else {
       this.getAllAuthors()
@@ -88,20 +90,26 @@ export class BookFormComponent extends BaseResourceFormComponent<Book> implement
   }
 
   protected async createResource() {
+    this.isLoading = true
+
     const resource = await this.formatBookObject()
 
     this.baseResourceService.create(resource).subscribe(
       (response: Book) => this.actionForSuccess(response),
-      (error: HttpErrorResponse) => this.actionForError(error)
+      (error: HttpErrorResponse) => this.actionForError(error),
+      () => this.isLoading = false
     )
   }
 
   protected async updateResource() {
+    this.isLoading = true
+
     const resource = await this.formatBookObject()
 
     this.baseResourceService.update(resource).subscribe(
       (response: Book) => this.actionForSuccess(response),
-      (error: HttpErrorResponse) => this.actionForError(error)
+      (error: HttpErrorResponse) => this.actionForError(error),
+      () => this.isLoading = false
     )
   }
 
@@ -109,8 +117,8 @@ export class BookFormComponent extends BaseResourceFormComponent<Book> implement
     this.resourceForm = this.formBuilder.group({
       id: [null],
       title: [null, [Validators.required, Validators.minLength(3)]],
-      categories: [null],
-      author: [null],
+      categories: [null, Validators.required],
+      author: [null, Validators.required],
       pages: [null],
       release: [null]
     })
