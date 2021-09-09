@@ -9,7 +9,9 @@ import { NumbersOnlyDirective } from './directives/numbers-only.directive';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 import { PageTitleComponent } from './components/page-title/page-title.component';
 import { FormFieldErrorComponent } from './components/form-field-error/form-field-error.component';
-import { ServerErrorMessageComponent } from './components/server-error-message/server-error-message.component'
+import { ServerErrorMessageComponent } from './components/server-error-message/server-error-message.component';
+import { LoadingComponent } from './components/loading/loading.component';
+import { NoContentFoundComponent } from './components/no-content-found/no-content-found.component'
 
 @NgModule({
   declarations: [
@@ -17,7 +19,9 @@ import { ServerErrorMessageComponent } from './components/server-error-message/s
     BreadcrumbComponent,
     PageTitleComponent,
     FormFieldErrorComponent,
-    ServerErrorMessageComponent
+    ServerErrorMessageComponent,
+    LoadingComponent,
+    NoContentFoundComponent
   ],
   imports: [
     CommonModule,
@@ -43,7 +47,9 @@ import { ServerErrorMessageComponent } from './components/server-error-message/s
     BreadcrumbComponent,
     PageTitleComponent,
     FormFieldErrorComponent,
-    ServerErrorMessageComponent
+    ServerErrorMessageComponent,
+    LoadingComponent,
+    NoContentFoundComponent
   ],
 })
 export class SharedModule { }
