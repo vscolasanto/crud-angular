@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, Injector } from '@angular/core'
 import { BaseResourceListComponent } from 'src/app/shared/components/base-resource-list/base-resource-list.component'
 import { Author } from '../models/author.model'
 import { AuthorsService } from '../services/authors.service'
@@ -10,9 +10,10 @@ import { AuthorsService } from '../services/authors.service'
 })
 export class AuthorListComponent extends BaseResourceListComponent<Author> {
   constructor(
-    protected authorService: AuthorsService
+    protected authorService: AuthorsService,
+    protected injector: Injector
   ) {
-    super(authorService)
+    super(injector, authorService)
   }
 
   protected removeError() {
