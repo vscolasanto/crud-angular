@@ -3,7 +3,6 @@ import { AfterContentChecked, Component, Inject, Injector, OnInit } from "@angul
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
-import { switchMap } from "rxjs/operators";
 import { BaseResourceModel } from "../../models/base-resource.model";
 import { BaseResourceService } from "../../services/base-resource.service";
 
@@ -15,6 +14,7 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel> imp
   pageTitle: string
   serverErrorMessage: string[] | null = null
   submittingForm: boolean = false
+  isLoading: boolean;
 
   protected route: ActivatedRoute
   protected router: Router
@@ -65,15 +65,17 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel> imp
 
   protected loadResource() {
     if (this.currentAction === 'edit') {
-      this.route.paramMap.pipe(
-        switchMap(params =>
-          this.baseResourceService.getById(Number(params.get('id')))
-        )
-      ).subscribe(
+      this.isLoading = true;
+
+      const id = Number(this.route.snapshot.params.id)
+
+      this.baseResourceService.getById(id).subscribe(
         (resource: T) => {
           this.resource = resource
-          this.resourceForm.patchValue(resource) // passa os valores para o formulário
-        }
+          this.resourceForm.patchValue(resource)
+        },
+        (error: HttpErrorResponse) => console.error(error),
+        () => this.isLoading = false
       )
     }
   }
@@ -95,20 +97,24 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel> imp
   }
 
   protected createResource() {
+    this.isLoading = true
     const resource: T = this.jsonDataToResourceFn(this.resourceForm.value)
 
     this.baseResourceService.create(resource).subscribe(
       (response: T) => this.actionForSuccess(response),
-      (error: HttpErrorResponse) => this.actionForError(error)
+      (error: HttpErrorResponse) => this.actionForError(error),
+      () => this.isLoading = false
     )
   }
 
   protected updateResource() {
+    this.isLoading = true
     const resource: T = this.jsonDataToResourceFn(this.resourceForm.value)
 
     this.baseResourceService.update(resource).subscribe(
       (response: T) => this.actionForSuccess(response),
-      (error: HttpErrorResponse) => this.actionForError(error)
+      (error: HttpErrorResponse) => this.actionForError(error),
+      () => this.isLoading = false
     )
   }
 
@@ -137,7 +143,7 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel> imp
     }
   }
 
-  private showToastr(
+  protected showToastr(
     type: 'success' | 'info' | 'warning' | 'error',
     message: string,
     title: string
