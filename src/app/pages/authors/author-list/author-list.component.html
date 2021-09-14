@@ -21,7 +21,11 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let author of resources">
+      <tr *ngFor="let author of resources | paginate: { id: 'pagination',
+        itemsPerPage: 5,
+        currentPage: page,
+        totalItems: resources.length
+      }">
         <td>{{author.name}}</td>
         <td>{{author.nationality}}</td>
         <td>
@@ -34,6 +38,15 @@
       </tr>
     </tbody>
   </table>
+  <pagination-controls
+    id="pagination"
+    (pageChange)="page = $event"
+    [autoHide]="true"
+    [responsive]="true"
+    previousLabel="Anterior"
+    nextLabel="Próxima"
+    class="d-flex justify-content-end"
+  ></pagination-controls>
 </div>
 
 <app-no-content-found *ngIf="!isLoading && !resources.length"></app-no-content-found>

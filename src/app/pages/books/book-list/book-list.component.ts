@@ -9,6 +9,8 @@ import { BooksService } from '../services/books.service';
   styleUrls: ['./book-list.component.scss']
 })
 export class BookListComponent extends BaseResourceListComponent<Book> {
+  page: number = 1
+
   constructor(
     private booksService: BooksService,
     protected injector: Injector

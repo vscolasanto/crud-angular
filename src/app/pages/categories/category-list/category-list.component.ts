@@ -9,6 +9,8 @@ import { CategoriesService } from '../services/categories.service';
   styleUrls: ['./category-list.component.scss']
 })
 export class CategoryListComponent extends BaseResourceListComponent<Category> {
+  page: number = 1
+
   constructor(
     private categoriesService: CategoriesService,
     protected injector: Injector

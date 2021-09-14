@@ -9,6 +9,7 @@ import { AuthorsService } from '../services/authors.service'
   styleUrls: ['./author-list.component.scss']
 })
 export class AuthorListComponent extends BaseResourceListComponent<Author> {
+  page: number = 1
   constructor(
     protected authorService: AuthorsService,
     protected injector: Injector
