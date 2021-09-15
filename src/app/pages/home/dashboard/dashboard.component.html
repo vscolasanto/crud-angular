@@ -2,5 +2,11 @@
   page-title="Home"
 ></app-page-title>
 
-* tags mais usadas<br>
-* Livros por autores<br>
+<app-loading *ngIf="isLoading"></app-loading>
+
+<ng-container *ngIf="!isLoading">
+  <div class="chart-container">
+    <app-chart [data]="bookByCategoryChart"></app-chart>
+    <app-chart [data]="bookByAuthorChart"></app-chart>
+  </div>
+</ng-container>

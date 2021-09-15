@@ -1,0 +1,22 @@
+.chart-container {
+  display: flex;
+  column-gap: 1rem;
+  justify-content: center;
+
+  app-chart {
+    flex: 1;
+    max-width: 100%;
+    width: auto;
+  }
+}
+
+@media only screen and (max-width: 993.98px) {
+  .chart-container {
+    flex-direction: column;
+    row-gap: 1rem;
+
+    app-chart {
+      max-width: unset;
+    }
+  }
+}

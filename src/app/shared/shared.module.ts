@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router'
 import { ToastrModule } from 'ngx-toastr'
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown'
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ChartsModule } from 'ng2-charts';
 
 import { NumbersOnlyDirective } from './directives/numbers-only.directive';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
@@ -14,6 +15,7 @@ import { FormFieldErrorComponent } from './components/form-field-error/form-fiel
 import { ServerErrorMessageComponent } from './components/server-error-message/server-error-message.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { NoContentFoundComponent } from './components/no-content-found/no-content-found.component';
+import { ChartComponent } from './component/chart/chart.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,7 @@ import { NoContentFoundComponent } from './components/no-content-found/no-conten
     ServerErrorMessageComponent,
     LoadingComponent,
     NoContentFoundComponent,
+    ChartComponent,
   ],
   imports: [
     CommonModule,
@@ -37,7 +40,8 @@ import { NoContentFoundComponent } from './components/no-content-found/no-conten
       progressAnimation: 'decreasing'
     }),
     NgMultiSelectDropDownModule.forRoot(),
-    NgxPaginationModule
+    NgxPaginationModule,
+    ChartsModule
   ],
   exports: [
     CommonModule,
@@ -54,6 +58,8 @@ import { NoContentFoundComponent } from './components/no-content-found/no-conten
     LoadingComponent,
     NoContentFoundComponent,
     NgxPaginationModule,
+    ChartsModule,
+    ChartComponent,
   ],
 })
 export class SharedModule { }
